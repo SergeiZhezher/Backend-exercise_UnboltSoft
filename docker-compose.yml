@@ -1,0 +1,20 @@
+version: '3.1'
+services:
+  mongodb_container:
+    image: mongo:latest
+    container_name: mongoDB
+    ports:
+      - 27017:27017
+    restart: always
+  unboltsoft:
+    container_name: unboltsoft
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: unboltsoft:latest
+    ports:
+      - 8080:8080
+    links:
+      - mongodb_container
+    depends_on:
+      - mongodb_container
